@@ -14,7 +14,7 @@ import store from "./redux/store";
 
 function App() {
   useEffect(() => {
-    M.AutoInit(); // Init Materialize javascript
+    M.AutoInit(); //  Materialize javascript
   });
   return (
     <Provider store={store}>
