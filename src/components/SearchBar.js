@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { searchLogs } from "../redux/actions/logActions";
-import PropTypes from "prop-types";
 
-const SearchBar = ({ searchLogs }) => {
-  const text = useRef("");
+const SearchBar = () => {
+  const text = React.useRef("");
 
-  const onChange = e => {
-    searchLogs(text.current.value);
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    dispatch(searchLogs(text.current.value));
   };
 
   return (
@@ -15,13 +16,7 @@ const SearchBar = ({ searchLogs }) => {
       <div className="nav-wrapper">
         <form>
           <div className="input-field">
-            <input
-              id="search"
-              type="search"
-              placeholder="Search Logs.."
-              ref={text}
-              onChange={onChange}
-            />
+            <input id="search" type="search" placeholder="Search Logs.." ref={text} onChange={onChange} />
             <label className="label-icon" htmlFor="search">
               <i className="material-icons">search</i>
             </label>
@@ -33,8 +28,4 @@ const SearchBar = ({ searchLogs }) => {
   );
 };
 
-SearchBar.propTypes = {
-  searchLogs: PropTypes.func.isRequired
-};
-
-export default connect(null, { searchLogs })(SearchBar);
+export default SearchBar;

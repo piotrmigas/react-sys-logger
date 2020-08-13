@@ -1,6 +1,12 @@
+export const setLoading = () => {
+  return {
+    type: "SET_LOADING",
+  };
+};
+
 export const getTechs = () => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch("/techs");
     const data = await res.json();
     dispatch({
@@ -17,7 +23,7 @@ export const getTechs = () => async (dispatch) => {
 
 export const addTech = (tech) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch("/logs", {
       method: "POST",
       headers: {
@@ -40,7 +46,7 @@ export const addTech = (tech) => async (dispatch) => {
 
 export const deleteTech = (id) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
 
     await fetch(`/techs/${id}`, {
       method: "DELETE",
@@ -56,10 +62,4 @@ export const deleteTech = (id) => async (dispatch) => {
       payload: err.response.statusText,
     });
   }
-};
-
-export const setLoading = () => {
-  return {
-    type: "SET_LOADING",
-  };
 };

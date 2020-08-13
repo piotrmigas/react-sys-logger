@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { updateLog } from "../redux/actions/logActions";
 import TechSelectOptions from "./TechSelectOptions";
 
-const EditLogModal = ({ current, updateLog }) => {
-  const [message, setMessage] = useState("");
-  const [attention, setAttention] = useState(false);
-  const [tech, setTech] = useState("");
+const EditLogModal = () => {
+  const [message, setMessage] = React.useState("");
+  const [attention, setAttention] = React.useState(false);
+  const [tech, setTech] = React.useState("");
 
-  useEffect(() => {
+  const dispatch = useDispatch();
+
+  const current = useSelector((state) => state.log.current);
+
+  React.useEffect(() => {
     if (current) {
       setMessage(current.message);
       setTech(current.tech);
@@ -29,7 +32,7 @@ const EditLogModal = ({ current, updateLog }) => {
         tech,
         date: new Date(),
       };
-      updateLog(updatedLog);
+      dispatch(updateLog(updatedLog));
       M.toast({ html: `Log updated by ${tech}` });
 
       setMessage("");
@@ -93,12 +96,4 @@ const modalStyle = {
   height: "75%",
 };
 
-EditLogModal.propTypes = {
-  updateLog: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  current: state.log.current,
-});
-
-export default connect(mapStateToProps, { updateLog })(EditLogModal);
+export default EditLogModal;

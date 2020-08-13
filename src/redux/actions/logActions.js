@@ -1,6 +1,12 @@
+export const setLoading = () => {
+  return {
+    type: "SET_LOADING",
+  };
+};
+
 export const getLogs = () => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch("/logs");
     const data = await res.json();
     dispatch({
@@ -17,7 +23,7 @@ export const getLogs = () => async (dispatch) => {
 
 export const searchLogs = (text) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch(`/logs?q=${text}`);
     const data = await res.json();
     dispatch({
@@ -32,15 +38,9 @@ export const searchLogs = (text) => async (dispatch) => {
   }
 };
 
-export const setLoading = () => {
-  return {
-    type: "SET_LOADING",
-  };
-};
-
 export const addLog = (log) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch("/logs", {
       method: "POST",
       headers: {
@@ -63,7 +63,7 @@ export const addLog = (log) => async (dispatch) => {
 
 export const deleteLog = (id) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     await fetch(`/logs/${id}`, {
       method: "DELETE",
     });
@@ -81,7 +81,7 @@ export const deleteLog = (id) => async (dispatch) => {
 
 export const updateLog = (log) => async (dispatch) => {
   try {
-    dispatch(setLoading());
+    setLoading();
     const res = await fetch(`/logs/${log.id}`, {
       method: "PUT",
       body: JSON.stringify(log),
@@ -107,11 +107,5 @@ export const setCurrent = (log) => {
   return {
     type: "SET_CURRENT",
     payload: log,
-  };
-};
-
-export const clearCurrent = () => {
-  return {
-    type: "CLEAR_CURRENT",
   };
 };
